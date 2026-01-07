@@ -6,6 +6,39 @@
 
 A Docker sandbox template for running [GitHub Copilot CLI](https://github.com/github/copilot-cli) in an isolated environment, similar to how Docker supports Claude Code and Gemini CLI via `docker sandbox run`.
 
+## ⚠️ Status: Waiting on Docker Support
+
+**Current limitation:** Docker's `docker sandbox run` command validates agent names against a hardcoded list (`claude`, `gemini`) before processing the `--template` flag:
+
+```bash
+$ docker sandbox run --template ghcr.io/henrybravo/docker-sandbox-run-copilot copilot
+invalid agent: copilot (must be one of: claude, gemini)
+```
+
+This means the `--template` flag alone cannot add new agents - Docker needs to add `copilot` to their supported agents list.
+
+### 📬 Requests Submitted
+
+We have requested Docker to add GitHub Copilot CLI support:
+
+| Channel | Status | Link |
+|---------|--------|------|
+| GitHub Issue | 🟡 Pending | [docker/cli#6734](https://github.com/docker/cli/issues/6734) |
+| Docker Feedback | 🟡 Submitted | coding-sandboxes-feedback@docker.com |
+
+**You can help!** Star/upvote the GitHub issue and add your voice to show community demand.
+
+### ✅ What Works Now
+
+While waiting for native support, you can use this template with `docker run`:
+
+```bash
+docker run -it --rm \
+  -v $(pwd):/workspace \
+  -e GITHUB_TOKEN="your-token" \
+  ghcr.io/henrybravo/docker-sandbox-run-copilot
+```
+
 ## 🎯 Purpose
 
 Docker Desktop 4.50+ introduced `docker sandbox run` which allows running AI coding agents (Claude Code, Gemini CLI) in isolated containers. This project provides a compatible template for GitHub Copilot CLI, enabling you to:
