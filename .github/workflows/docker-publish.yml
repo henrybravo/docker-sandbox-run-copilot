@@ -26,6 +26,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Read Copilot CLI version
+        id: copilot-version
+        run: |
+          COPILOT_VERSION=$(cat .copilot-version)
+          echo "version=$COPILOT_VERSION" >> $GITHUB_OUTPUT
+          echo "Copilot CLI version: $COPILOT_VERSION"
+
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
 
@@ -46,11 +53,11 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
-            type=ref,event=branch
+            type=raw,value=${{ steps.copilot-version.outputs.version }},enable={{is_default_branch}}
+            type=raw,value=latest,enable={{is_default_branch}}
             type=ref,event=pr
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
-            type=raw,value=latest,enable={{is_default_branch}}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
@@ -60,6 +67,8 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          build-args: |
+            COPILOT_VERSION=${{ steps.copilot-version.outputs.version }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -72,26 +81,5 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Build test image
-        run: docker build -t test-image .
-
-      - name: Test image basics
-        run: |
-          # Test that the image builds and copilot is installed
-          docker run --rm test-image which copilot
-          docker run --rm test-image copilot --version || true
-          
-          # Test that required tools are present
-          docker run --rm test-image node --version
-          docker run --rm test-image npm --version
-          docker run --rm test-image gh --version
-          docker run --rm test-image git --version
-          docker run --rm test-image python3 --version
-
-      - name: Test entrypoint
-        run: |
-          # Test that entrypoint works with bash
-          docker run --rm test-image bash -c "echo 'Shell works'"
-          
-          # Test environment setup
-          docker run --rm -e GIT_USER_NAME="Test User" test-image bash -c "git config --global user.name"
+      - name: Build and test image
+        run: make test

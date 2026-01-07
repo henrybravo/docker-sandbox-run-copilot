@@ -1,6 +1,7 @@
 # Docker Sandbox Template for GitHub Copilot CLI
 
-[![Docker Image](https://img.shields.io/badge/docker-ghcr.io%2Fhenrybravo%2Fdocker--sandbox--run--copilot-blue)](https://github.com/henrybravo/docker-sandbox-run-copilot/pkgs/container/docker-sandbox-run-copilot)
+[![Copilot CLI](https://img.shields.io/badge/Copilot_CLI-0.0.375-8957e5?logo=githubcopilot&logoColor=white)](https://github.com/github/copilot-cli)
+[![Docker Image](https://img.shields.io/badge/docker-ghcr.io%2Fhenrybravo%2Fdocker--sandbox--run--copilot-blue?logo=docker&logoColor=white)](https://github.com/henrybravo/docker-sandbox-run-copilot/pkgs/container/docker-sandbox-run-copilot)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 A Docker sandbox template for running [GitHub Copilot CLI](https://github.com/github/copilot-cli) in an isolated environment, similar to how Docker supports Claude Code and Gemini CLI via `docker sandbox run`.
@@ -301,6 +302,12 @@ MIT License - see [LICENSE](LICENSE) for details.
 - [GitHub Copilot CLI Documentation](https://docs.github.com/en/copilot/concepts/agents/about-copilot-cli)
 - [Docker Sandboxes Documentation](https://docs.docker.com/ai/sandboxes/)
 - [MCP (Model Context Protocol)](https://github.com/mcp)
+
+---
+
+## TODO
+
+- [ ] Add GitHub Action to auto-update README badge when `.copilot-version` changes
 
 ---
 

@@ -12,7 +12,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: ghcr.io/henrybravo/docker-sandbox-run-copilot:latest
+      args:
+        COPILOT_VERSION: ${COPILOT_VERSION:-0.0.375}
+    image: ghcr.io/henrybravo/docker-sandbox-run-copilot:${COPILOT_VERSION:-0.0.375}
     container_name: copilot-sandbox
     stdin_open: true
     tty: true

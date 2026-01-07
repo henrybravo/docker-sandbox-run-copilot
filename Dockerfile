@@ -14,10 +14,14 @@
 
 FROM ubuntu:24.04
 
+# Copilot CLI version (passed via --build-arg or defaults to latest)
+ARG COPILOT_VERSION=latest
+
 LABEL org.opencontainers.image.title="Docker Sandbox Template for GitHub Copilot CLI"
 LABEL org.opencontainers.image.description="Sandboxed environment for running GitHub Copilot CLI agent"
 LABEL org.opencontainers.image.authors="Henry Bravo <henry@bravo.it>"
 LABEL org.opencontainers.image.source="https://github.com/henrybravo/docker-sandbox-run-copilot"
+LABEL org.opencontainers.image.version="${COPILOT_VERSION}"
 LABEL org.opencontainers.image.licenses="MIT"
 LABEL com.docker.sandboxes="templates"
 LABEL com.docker.sandboxes.base="ubuntu:24.04"
@@ -98,7 +102,8 @@ RUN useradd -m -s /bin/bash -G sudo agent \
 # =============================================================================
 # Install GitHub Copilot CLI globally
 # =============================================================================
-RUN npm install -g @github/copilot
+ARG COPILOT_VERSION
+RUN npm install -g @github/copilot@${COPILOT_VERSION}
 
 # =============================================================================
 # Set up user environment

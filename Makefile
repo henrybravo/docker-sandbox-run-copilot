@@ -1,19 +1,27 @@
 # Makefile for Docker Sandbox Template for GitHub Copilot CLI
 .PHONY: build run test push clean help
 
-# Default image name
+# Read Copilot CLI version from .copilot-version file
+COPILOT_VERSION := $(shell cat .copilot-version 2>/dev/null || echo "latest")
+
+# Image configuration
 IMAGE_NAME ?= ghcr.io/henrybravo/docker-sandbox-run-copilot
-VERSION ?= latest
+VERSION ?= $(COPILOT_VERSION)
 
 # Build the Docker image
 build:
-	@echo "Building Docker image..."
-	docker build -t $(IMAGE_NAME):$(VERSION) .
+	@echo "Building Docker image $(IMAGE_NAME):$(VERSION)..."
+	docker build --build-arg COPILOT_VERSION=$(COPILOT_VERSION) \
+		-t $(IMAGE_NAME):$(VERSION) \
+		-t $(IMAGE_NAME):latest .
 
 # Build for multiple platforms
 build-multi:
-	@echo "Building multi-platform Docker image..."
-	docker buildx build --platform linux/amd64,linux/arm64 -t $(IMAGE_NAME):$(VERSION) .
+	@echo "Building multi-platform Docker image $(IMAGE_NAME):$(VERSION)..."
+	docker buildx build --platform linux/amd64,linux/arm64 \
+		--build-arg COPILOT_VERSION=$(COPILOT_VERSION) \
+		-t $(IMAGE_NAME):$(VERSION) \
+		-t $(IMAGE_NAME):latest .
 
 # Run interactively with current directory mounted
 run:
@@ -36,9 +44,10 @@ shell:
 # Run tests
 test:
 	@echo "Running tests..."
-	docker build -t $(IMAGE_NAME):test .
+	docker build --build-arg COPILOT_VERSION=$(COPILOT_VERSION) -t $(IMAGE_NAME):test .
 	docker run --rm $(IMAGE_NAME):test bash -c '\
 		echo "=== Testing Copilot Sandbox ===" && \
+		echo "Copilot Version: $(COPILOT_VERSION)" && \
 		echo "Node: $$(node --version)" && \
 		echo "npm: $$(npm --version)" && \
 		echo "Copilot CLI: $$(which copilot)" && \
@@ -71,6 +80,9 @@ clean:
 help:
 	@echo "Docker Sandbox Template for GitHub Copilot CLI"
 	@echo ""
+	@echo "Copilot CLI Version: $(COPILOT_VERSION)"
+	@echo "Image: $(IMAGE_NAME):$(VERSION)"
+	@echo ""
 	@echo "Usage: make [target]"
 	@echo ""
 	@echo "Targets:"
@@ -84,7 +96,8 @@ help:
 	@echo "  clean       Remove local images"
 	@echo "  help        Show this help message"
 	@echo ""
-	@echo "Environment variables:"
-	@echo "  IMAGE_NAME  Container image name (default: $(IMAGE_NAME))"
-	@echo "  VERSION     Image version tag (default: $(VERSION))"
-	@echo "  GITHUB_TOKEN  GitHub token for Copilot CLI authentication"
+	@echo "Configuration:"
+	@echo "  COPILOT_VERSION  Copilot CLI version (from .copilot-version: $(COPILOT_VERSION))"
+	@echo "  IMAGE_NAME       Container image name (default: $(IMAGE_NAME))"
+	@echo "  VERSION          Image version tag (default: $(VERSION))"
+	@echo "  GITHUB_TOKEN     GitHub token for Copilot CLI authentication"
