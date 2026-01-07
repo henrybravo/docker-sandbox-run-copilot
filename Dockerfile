@@ -19,7 +19,7 @@ ARG COPILOT_VERSION=latest
 
 LABEL org.opencontainers.image.title="Docker Sandbox Template for GitHub Copilot CLI"
 LABEL org.opencontainers.image.description="Sandboxed environment for running GitHub Copilot CLI agent"
-LABEL org.opencontainers.image.authors="Henry Bravo <henry@bravo.it>"
+LABEL org.opencontainers.image.authors="Henry Bravo <info@henrybravo.nl>"
 LABEL org.opencontainers.image.source="https://github.com/henrybravo/docker-sandbox-run-copilot"
 LABEL org.opencontainers.image.version="${COPILOT_VERSION}"
 LABEL org.opencontainers.image.licenses="MIT"
