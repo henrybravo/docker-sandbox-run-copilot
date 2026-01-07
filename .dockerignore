@@ -1,0 +1,40 @@
+# =============================================================================
+# Docker Sandbox Copilot CLI - .dockerignore
+# =============================================================================
+
+# Git
+.git
+.gitignore
+
+# GitHub
+.github
+
+# Documentation
+README.md
+CONTRIBUTING.md
+SECURITY.md
+LICENSE
+
+# Development files
+.env
+.env.example
+docker-compose.yml
+docker-compose.override.yml
+Makefile
+
+# IDE/Editor
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Archives
+*.zip
+*.tar.gz
+
+# Logs
+*.log

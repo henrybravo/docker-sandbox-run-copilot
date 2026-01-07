@@ -1,0 +1,44 @@
+# =============================================================================
+# Docker Sandbox Copilot CLI - Custom Bash Configuration
+# =============================================================================
+
+# Colors
+export PS1='\[\033[01;32m\]copilot-sandbox\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+
+# Aliases
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+alias ..='cd ..'
+alias ...='cd ../..'
+
+# Git aliases
+alias gs='git status'
+alias ga='git add'
+alias gc='git commit'
+alias gp='git push'
+alias gl='git log --oneline -10'
+alias gd='git diff'
+
+# Copilot aliases
+alias cop='copilot'
+alias copsuggest='copilot suggest'
+alias copexplain='copilot explain'
+
+# History settings
+export HISTSIZE=10000
+export HISTFILESIZE=20000
+export HISTCONTROL=ignoreboth:erasedups
+shopt -s histappend
+
+# Enable bash completion
+if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+fi
+
+# Enable color support
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    alias grep='grep --color=auto'
+fi

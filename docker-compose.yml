@@ -1,0 +1,36 @@
+# =============================================================================
+# Docker Sandbox Copilot CLI - Docker Compose Configuration
+# =============================================================================
+# Usage:
+#   docker compose up -d     # Start the sandbox
+#   docker compose exec copilot bash  # Enter the sandbox
+#   docker compose down      # Stop the sandbox
+# =============================================================================
+
+services:
+  copilot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ghcr.io/henrybravo/docker-sandbox-run-copilot:latest
+    container_name: copilot-sandbox
+    stdin_open: true
+    tty: true
+    environment:
+      - GITHUB_TOKEN=${GITHUB_TOKEN:-}
+      - GIT_USER_NAME=${GIT_USER_NAME:-}
+      - GIT_USER_EMAIL=${GIT_USER_EMAIL:-}
+    volumes:
+      # Mount current directory as workspace
+      - ${WORKSPACE_PATH:-.}:/workspace
+      # Persist Copilot CLI configuration
+      - copilot-config:/home/agent/.config/copilot
+      # Persist Copilot CLI state
+      - copilot-state:/home/agent/.local/state/copilot
+      # Optional: Mount SSH keys (read-only)
+      # - ~/.ssh:/home/agent/.ssh:ro
+    working_dir: /workspace
+
+volumes:
+  copilot-config:
+  copilot-state:
