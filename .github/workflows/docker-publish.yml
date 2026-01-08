@@ -18,6 +18,12 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
+    # Only run on push if commit message contains 'build-publish-image', or on tags/PRs/manual trigger
+    if: |
+      github.event_name == 'workflow_dispatch' ||
+      github.event_name == 'pull_request' ||
+      startsWith(github.ref, 'refs/tags/') ||
+      contains(github.event.head_commit.message, 'build-publish-image')
     permissions:
       contents: read
       packages: write
