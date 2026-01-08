@@ -39,6 +39,8 @@ docker run -it --rm \
   ghcr.io/henrybravo/docker-sandbox-run-copilot
 ```
 
+https://github.com/henrybravo/docker-sandbox-run-copilot/raw/main/copilot-cli.mp4
+
 ## 🎯 Purpose
 
 Docker Desktop 4.50+ introduced `docker sandbox run` which allows running AI coding agents (Claude Code, Gemini CLI) in isolated containers. This project provides a compatible template for GitHub Copilot CLI, enabling you to:
