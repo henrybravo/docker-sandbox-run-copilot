@@ -39,7 +39,7 @@ docker run -it --rm \
   ghcr.io/henrybravo/docker-sandbox-run-copilot
 ```
 
-https://github.com/henrybravo/docker-sandbox-run-copilot/raw/main/copilot-cli.mp4
+https://github.com/user-attachments/assets/68afaabf-3f0a-4e61-a1c1-8ca99fcbcf10
 
 ## 🎯 Purpose
 
