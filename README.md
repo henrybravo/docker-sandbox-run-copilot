@@ -23,8 +23,10 @@ We have requested Docker to add GitHub Copilot CLI support:
 
 | Channel | Status | Link |
 |---------|--------|------|
-| GitHub Issue | 🟡 Pending | [docker/cli#6734](https://github.com/docker/cli/issues/6734) |
+| GitHub Issue | 🟢 Acknowledged | [docker/cli#6734](https://github.com/docker/cli/issues/6734) |
 | Docker Feedback | 🟡 Submitted | coding-sandboxes-feedback@docker.com |
+
+> **Update:** Docker team acknowledged the request and is investigating. The sandbox plugin is closed-source, but they're looking into adding Copilot support.
 
 **You can help!** Star/upvote the GitHub issue and add your voice to show community demand.
 
