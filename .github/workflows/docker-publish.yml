@@ -73,6 +73,9 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          annotations: |
+            org.opencontainers.image.description=Docker sandbox template for running GitHub Copilot CLI in an isolated environment
+            org.opencontainers.image.title=Docker Sandbox Template for GitHub Copilot CLI
           build-args: |
             COPILOT_VERSION=${{ steps.copilot-version.outputs.version }}
           cache-from: type=gha
