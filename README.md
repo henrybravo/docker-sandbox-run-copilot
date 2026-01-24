@@ -1,6 +1,6 @@
 # Docker Sandbox Template for GitHub Copilot CLI
 
-[![Copilot CLI](https://img.shields.io/badge/Copilot_CLI-0.0.376-ea4050?logo=githubcopilot&logoColor=white)](https://github.com/github/copilot-cli)
+[![Copilot CLI](https://img.shields.io/badge/Copilot_CLI-0.0.394-blue?logo=githubcopilot&logoColor=white)](https://github.com/github/copilot-cli)
 [![Docker Image](https://img.shields.io/badge/docker-ghcr.io%2Fhenrybravo%2Fdocker--sandbox--run--copilot-blue?logo=docker&logoColor=white)](https://github.com/henrybravo/docker-sandbox-run-copilot/pkgs/container/docker-sandbox-run-copilot)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
