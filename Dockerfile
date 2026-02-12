@@ -141,4 +141,4 @@ RUN chmod +x /home/agent/entrypoint.sh
 WORKDIR /workspace
 
 ENTRYPOINT ["/home/agent/entrypoint.sh"]
-CMD ["copilot"]
+CMD ["sleep", "infinity"]

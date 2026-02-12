@@ -195,8 +195,10 @@ main() {
         exec copilot "$@"
     fi
     
-    # If first argument is 'bash' or 'sh', start a shell
-    if [ "$1" = "bash" ] || [ "$1" = "sh" ]; then
+    # If first argument is 'bash', 'sh', or 'sleep', pass through directly.
+    # 'sleep infinity' is used by docker sandbox to keep the container alive
+    # while it performs setup steps (e.g., fixing docker socket ownership).
+    if [ "$1" = "bash" ] || [ "$1" = "sh" ] || [ "$1" = "sleep" ]; then
         exec "$@"
     fi
     
