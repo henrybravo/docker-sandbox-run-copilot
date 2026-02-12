@@ -4,7 +4,9 @@
 [![Docker Image](https://img.shields.io/badge/docker-ghcr.io%2Fhenrybravo%2Fdocker--sandbox--run--copilot-blue?logo=docker&logoColor=white)](https://github.com/henrybravo/docker-sandbox-run-copilot/pkgs/container/docker-sandbox-run-copilot)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-A Docker sandbox template for running [GitHub Copilot CLI](https://github.com/github/copilot-cli) in an isolated environment. Docker's `docker sandbox run` now supports `copilot` as an agent type. You can use this template:
+A Docker sandbox template for running [GitHub Copilot CLI](https://github.com/github/copilot-cli) in an isolated environment. Docker's `docker sandbox run` now supports `copilot` as an agent type: [copilot support was added in docker version v0.11.0.](https://github.com/docker/cli/issues/6734)
+
+You can use this template:
 
 ```bash
 docker sandbox run --template ghcr.io/henrybravo/docker-sandbox-run-copilot copilot .
