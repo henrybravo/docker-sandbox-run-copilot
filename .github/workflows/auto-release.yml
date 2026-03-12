@@ -1,0 +1,53 @@
+name: Create Release on Version Update
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.copilot-version'
+
+permissions:
+  contents: write
+
+jobs:
+  create-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Read new version
+        id: version
+        run: |
+          VERSION=$(tr -d '[:space:]' < .copilot-version)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "tag=v$VERSION" >> $GITHUB_OUTPUT
+          echo "Detected version: $VERSION"
+
+      - name: Check if tag already exists
+        id: check-tag
+        run: |
+          git fetch --tags
+          if git tag -l "${{ steps.version.outputs.tag }}" | grep -q .; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+            echo "Tag ${{ steps.version.outputs.tag }} already exists, skipping release creation."
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+            echo "Tag ${{ steps.version.outputs.tag }} does not exist, creating release."
+          fi
+
+      - name: Create tag and release
+        if: steps.check-tag.outputs.exists == 'false'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "${{ steps.version.outputs.tag }}" \
+            --title "Release ${{ steps.version.outputs.tag }}" \
+            --notes "## What's Changed
+
+Updated GitHub Copilot CLI to version \`${{ steps.version.outputs.version }}\`.
+
+See upstream release notes at: https://github.com/github/copilot-cli/releases/tag/${{ steps.version.outputs.tag }}" \
+            --latest
+          echo "Release ${{ steps.version.outputs.tag }} created successfully."
