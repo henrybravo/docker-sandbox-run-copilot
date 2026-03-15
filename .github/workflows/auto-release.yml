@@ -41,13 +41,12 @@ jobs:
         if: steps.check-tag.outputs.exists == 'false'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_TAG: ${{ steps.version.outputs.tag }}
+          RELEASE_VERSION: ${{ steps.version.outputs.version }}
         run: |
-          gh release create "${{ steps.version.outputs.tag }}" \
-            --title "Release ${{ steps.version.outputs.tag }}" \
-            --notes "## What's Changed
-
-Updated GitHub Copilot CLI to version \`${{ steps.version.outputs.version }}\`.
-
-See upstream release notes at: https://github.com/github/copilot-cli/releases/tag/${{ steps.version.outputs.tag }}" \
+          NOTES=$(printf "## What's Changed\n\nUpdated GitHub Copilot CLI to version \`%s\`.\n\nSee upstream release notes at: https://github.com/github/copilot-cli/releases/tag/%s" "$RELEASE_VERSION" "$RELEASE_TAG")
+          gh release create "$RELEASE_TAG" \
+            --title "Release $RELEASE_TAG" \
+            --notes "$NOTES" \
             --latest
-          echo "Release ${{ steps.version.outputs.tag }} created successfully."
+          echo "Release $RELEASE_TAG created successfully."
