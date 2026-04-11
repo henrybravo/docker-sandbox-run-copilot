@@ -44,7 +44,7 @@ This file contains only the version number (e.g., `1.0.4`), without a `v` prefix
 
 ### Step 3: Compare Versions
 
-Compare the latest release version with the current version using semantic versioning rules (major.minor.patch). If the latest version is **greater than** the current version, proceed to Step 4. Otherwise, print "Copilot CLI is already at the latest version (X.X.X). No update needed." and stop — do **not** create a pull request.
+Compare the latest release version with the current version using semantic versioning rules (major.minor.patch). If the latest version is **greater than** the current version, proceed to Step 4. Otherwise, call the `noop` tool with the message "Copilot CLI is already at the latest version (X.X.X). No update needed." and stop — do **not** create a pull request.
 
 ### Step 4: Update the Version Files
 
