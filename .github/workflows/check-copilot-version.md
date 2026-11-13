@@ -18,6 +18,8 @@ tools:
   edit:
   bash: true
 safe-outputs:
+  threat-detection:
+    runs-on: ubuntu-24.04
   create-pull-request:
     labels: [version-update, automated]
     draft: false
