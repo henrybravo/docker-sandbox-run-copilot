@@ -5,6 +5,8 @@ on:
   skip-if-match: "is:pr is:open label:version-update"
 name: Check Copilot CLI Version
 description: Check for new GitHub Copilot CLI releases and create a PR to update version references in this repository
+# Ubuntu 26.04 sudo-rs ignores -E, dropping the environment needed by the sandbox.
+runs-on: ubuntu-24.04
 permissions:
   contents: read
   issues: read
